@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoodMeal - Recipes</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 600px;
+        position: relative;
+      }
+      .close-btn {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>MoodMeal</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="recipe.html" class="active">Recipes</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h2>Browse Recipes by Mood</h2>
+        <p>Pick a mood to discover a matching recipe and music vibe!</p>
+        <select id="mood-selector">
+          <option value="">-- Choose your mood --</option>
+          <option value="happy">😊 Happy</option>
+          <option value="romantic">💖 Romantic</option>
+          <option value="sad">😢 Sad</option>
+          <option value="chill">😌 Chill</option>
+          <option value="energized">⚡ Energized</option>
+          <option value="adventurous">🌍 Adventurous</option>
+          <option value="nostalgic">📻 Nostalgic</option>
+          <option value="focused">🎯 Focused</option>
+          <option value="lazy">🛋️ Lazy</option>
+          <option value="inspired">🌟 Inspired</option>
+        </select>
+      </section>
+
+      <section class="all-recipes container">
+        <h2>All Recipes</h2>
+        <div class="recipe-grid" id="recipe-grid"></div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="recipe-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" id="close-modal">&times;</span>
+        <h3 id="modal-title">Recipe Title</h3>
+        <p id="modal-desc">Recipe description</p>
+        <h4>Ingredients:</h4>
+        <ul id="modal-ingredients"></ul>
+        <h4>Instructions:</h4>
+        <p id="modal-instructions"></p>
+        <h4>Your Music Vibe:</h4>
+        <div id="modal-music" class="music-box"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 MoodMeal. Created with 💛 at Uncommon bootcamp.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      const recipeGrid = document.getElementById("recipe-grid");
+      const modal = document.getElementById("recipe-modal");
+      const closeModal = document.getElementById("close-modal");
+
+      const modalTitle = document.getElementById("modal-title");
+      const modalDesc = document.getElementById("modal-desc");
+      const modalIngredients = document.getElementById("modal-ingredients");
+      const modalInstructions = document.getElementById("modal-instructions");
+      const modalMusic = document.getElementById("modal-music");
+
+      // Example ingredients and instructions for each mood
+      const recipeDetails = {
+        happy: {
+          ingredients: ["1 cup flour", "1/2 cup sugar", "2 lemons, zest and juice", "2 eggs", "1/2 cup butter"],
+          instructions: "Mix all ingredients, bake at 350°F for 20 minutes, let cool, and enjoy your sunshine cupcakes!"
+        },
+        romantic: {
+          ingredients: ["1 cup flour", "2 eggs", "1/2 cup milk", "1/2 cup strawberries", "1 tsp rose water"],
+          instructions: "Prepare crepe batter, cook thin crepes, add strawberries and rose syrup, fold and serve with love."
+        },
+        // Add other moods here...
+      };
+
+      // Generate recipe cards dynamically
+      for (const mood in moodData) {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+          <h3>${moodData[mood].recipe.title}</h3>
+          <p>${moodData[mood].recipe.desc}</p>
+          <button onclick="openModal('${mood}')">View Full Recipe</button>
+        `;
+
+        recipeGrid.appendChild(card);
+      }
+
+      function openModal(mood) {
+        modalTitle.textContent = moodData[mood].recipe.title;
+        modalDesc.textContent = moodData[mood].recipe.desc;
+
+        // Populate ingredients
+        modalIngredients.innerHTML = "";
+        if (recipeDetails[mood] && recipeDetails[mood].ingredients) {
+          recipeDetails[mood].ingredients.forEach(ing => {
+            const li = document.createElement("li");
+            li.textContent = ing;
+            modalIngredients.appendChild(li);
+          });
+        }
+
+        // Populate instructions
+        modalInstructions.textContent = recipeDetails[mood]?.instructions || "Instructions coming soon.";
+
+        // Music embed
+        modalMusic.innerHTML = `
+          <iframe style="border-radius:12px" src="${moodData[mood].music}" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        `;
+
+        modal.style.display = "block";
+      }
+
+      closeModal.onclick = () => modal.style.display = "none";
+      window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; }
+    </script>
+  </body>
+</html>
