@@ -1,116 +1,213 @@
+/* ---------------- BASE STYLES ---------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+}
 
+body {
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: gradientBG 20s ease infinite;
+  will-change: background-position;
+}
 
-      body {
-        margin: 0;
-        font-family: "Montserrat", sans-serif;
-        background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
-        background-size: 600% 600%;
-        animation: gradientBG 20s ease infinite;
-        color: #fff;
-      }
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-      @keyframes gradientBG {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
+/* ---------------- HEADER ---------------- */
+header {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem 0;
+  border-bottom: 2px solid #00ffe0;
+  position: relative;
+  z-index: 100;
+}
 
-      header {
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 1rem 0;
-        border-bottom: 2px solid #00ffe0;
-      }
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+}
 
-      .container {
-        width: 90%;
-        max-width: 1100px;
-        margin: auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+/* Flex container for logo + hamburger + nav */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 
-      nav a {
-        margin: 0 1rem;
-        text-decoration: none;
-        color: #00ffe0;
-        font-weight: 500;
-        transition: color 0.3s ease;
-      }
+.header-top h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
 
-      nav a:hover,
-      nav a.active {
-        color: #ffffff;
-      }
+/* ---------------- NAVIGATION ---------------- */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
 
-      .hero {
-        text-align: center;
-        padding: 6rem 2rem;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 20px;
-        margin: 2rem auto;
-        width: 90%;
-        max-width: 800px;
-        backdrop-filter: blur(8px);
-      }
+nav a {
+  text-decoration: none;
+  color: #00ffe0;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
 
-      .hero h2 {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-      }
+nav a:hover,
+nav a.active {
+  color: #ffffff;
+}
 
-      select {
-        padding: 0.8rem;
-        font-size: 1rem;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        background-color: #1e1e1e;
-        color: #00ffe0;
-      }
+/* ---------------- HAMBURGER ---------------- */
+.nav-toggle {
+  display: none;
+}
 
-      #result-section {
-        text-align: center;
-        margin: 2rem auto;
-        width: 90%;
-        max-width: 800px;
-      }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 21px;
+  cursor: pointer;
+}
 
-      .card {
-        background-color: rgba(0, 0, 0, 0.4);
-        margin: 1rem 0;
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 0 12px rgba(0, 255, 224, 0.4);
-      }
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #00ffe0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
 
-      .music-box iframe {
-        width: 100%;
-        height: 80px;
-      }
+/* ---------------- HERO ---------------- */
+.hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 800px;
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+}
 
-      footer {
-        text-align: center;
-        padding: 2rem 0;
-        border-top: 1px solid #00ffe0;
-      }
+.hero h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
 
-      button{
-        border: none;
-        background-color: #1E1E1E;
-        color: #00ffe0;
-        font-size: medium;
-        font-weight: 500;
-        border-radius: 10px;
-        padding: 10px;
-      }
-      button:hover{
-        color: #fff;
+/* ---------------- FORM ELEMENTS ---------------- */
+select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background-color: #1e1e1e;
+  color: #00ffe0;
+}
 
-      }
+/* ---------------- RESULTS ---------------- */
+#result-section {
+  text-align: center;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 255, 224, 0.4);
+}
+
+.music-box iframe {
+  width: 100%;
+  height: 80px;
+}
+
+/* ---------------- BUTTONS ---------------- */
+button {
+  border: none;
+  background-color: #1E1E1E;
+  color: #00ffe0;
+  font-size: medium;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #fff;
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  border-top: 1px solid #00ffe0;
+}
+
+/* ---------------- RESPONSIVENESS ---------------- */
+@media (max-width: 992px) {
+  .hero { padding: 4rem 1.5rem; }
+  .hero h2 { font-size: 1.75rem; }
+  .container { flex-direction: column; align-items: stretch; }
+}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 600px) {
+  .hamburger { display: flex; }
+
+  /* Hide nav links by default */
+  .nav-links { 
+    display: none; 
+    flex-direction: column; 
+    background-color: rgba(0,0,0,0.8); 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    width: 100%; 
+    padding: 1rem 0; 
+    text-align: center; 
+    gap: 1rem;
+  }
+
+  /* Show nav when hamburger checked */
+  .nav-toggle:checked + .hamburger + .nav-links {
+    display: flex;
+  }
+
+  nav a {
+    margin: 0;
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+
+  .hero { padding: 3rem 1rem; }
+  .hero h2 { font-size: 1.5rem; }
+  select { width: 100%; font-size: 0.9rem; }
+  button { width: 100%; padding: 12px; font-size: 1rem; }
+  .card { padding: 1.5rem; }
+}
