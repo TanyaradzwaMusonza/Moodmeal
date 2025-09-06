@@ -1,168 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MoodMeal - Recipes</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      /* Modal Styles */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-      .modal-content {
-        background-color: #fff;
-        margin: 10% auto;
-        padding: 20px;
-        border-radius: 12px;
-        max-width: 600px;
-        position: relative;
-      }
-      .close-btn {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        font-size: 24px;
-        cursor: pointer;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <h1>MoodMeal</h1>
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="recipe.html" class="active">Recipes</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-        </nav>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodMeal | Recipes</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ---------------- BASE ---------------- */
+html, body {
+  margin:0;
+  padding:0;
+  font-family:'Montserrat',sans-serif;
+  background:linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size:600% 600%;
+  animation:gradientBG 20s ease infinite;
+  color:#fff;
+  overflow-x: hidden;
+}
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* ---------------- HEADER ---------------- */
+header {
+  background-color: rgba(0,0,0,0.6);
+  padding:1rem 0;
+  border-bottom:2px solid #00ffe0;
+  position: relative;
+  z-index: 100;
+}
+.container {
+  width:90%;
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+header h1 { margin:0; font-size:1.8rem; }
+
+/* NAVIGATION */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  text-decoration:none;
+  color:#00ffe0;
+  font-weight:500;
+  transition:color 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color:#fff; }
+
+/* HAMBURGER */
+.nav-toggle { display:none; }
+.hamburger {
+  display:none;
+  flex-direction: column;
+  justify-content: space-between;
+  width:28px;
+  height:21px;
+  cursor:pointer;
+}
+.hamburger span {
+  display:block;
+  height:3px;
+  width:100%;
+  background-color:#00ffe0;
+  border-radius:2px;
+  transition: all 0.3s ease;
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  text-align:center;
+  padding:4rem 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius:20px;
+  margin:2rem auto;
+  width:90%;
+  max-width:800px;
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+}
+.hero h2 { font-size:1.8rem; }
+select {
+  padding:0.8rem;
+  font-size:1rem;
+  border-radius:8px;
+  border:none;
+  outline:none;
+  background-color:#1e1e1e;
+  color:#00ffe0;
+  width:100%;
+  max-width:100%;
+  box-sizing: border-box;
+}
+
+/* ---------------- GRID ---------------- */
+.recipe-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;
+  padding:2rem;
+  box-sizing: border-box;
+}
+.card {
+  background-color: rgba(0,0,0,0.4);
+  padding:1rem;
+  border-radius:12px;
+  text-align:center;
+  box-shadow:0 0 12px rgba(0,255,224,0.4);
+  box-sizing: border-box;
+}
+.card img {
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:8px;
+}
+.card h3 {margin:0.5rem 0; font-size:1.2rem;}
+button {
+  border:none;
+  background-color:#1E1E1E;
+  color:#00ffe0;
+  font-weight:500;
+  border-radius:10px;
+  padding:10px;
+  cursor:pointer;
+  width:100%;
+  box-sizing: border-box;
+}
+button:hover {color:#fff;}
+
+/* ---------------- MODAL ---------------- */
+.modal {
+  display:none;
+  position:fixed;
+  z-index:10;
+  left:0; top:0;
+  width:100%; height:100%;
+  overflow-y:auto;
+  background-color:rgba(0,0,0,0.6);
+}
+.modal.show {
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding-top:20px;
+}
+.modal-content {
+  position:relative;
+  background-color:#111;
+  margin:0 10px;
+  padding:20px 15px 15px;
+  border-radius:10px;
+  width:90%;
+  max-width:900px;
+  max-height:90vh;
+  display:flex;
+  flex-direction:row;
+  gap:15px;
+  box-sizing: border-box;
+  overflow:hidden;
+}
+.close {
+  position:absolute;
+  top:10px; right:15px;
+  font-size:28px;
+  font-weight:bold;
+  cursor:pointer;
+  color:#00ffe0;
+}
+.modal-body {
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  width:100%;
+  align-items:flex-start;
+}
+.left {
+  flex:1 1 40%;
+  display:flex;
+  flex-direction:column;
+}
+.left img.main-img {
+  width:100%;
+  max-height:250px;
+  object-fit:cover;
+  border-radius:10px;
+}
+.thumbnails {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:5px;
+  margin-top:5px;
+}
+.thumbnails img {
+  width:100%;
+  height:100px;
+  object-fit:contain;
+  border-radius:5px;
+  cursor:pointer;
+  background-color:#222;
+}
+.right {
+  flex:1 1 55%;
+  max-height:450px;
+  display:flex;
+  flex-direction:column;
+}
+.scroll-area {
+  overflow-y:auto;
+  padding-top:15px;
+  flex:1;
+}
+.right h2 { font-size:1.3rem; color:#00ffe0; margin-bottom:0.3rem; }
+.right p { font-size:0.9rem; margin-bottom:0.5rem; }
+.right h3 { font-size:1rem; color:#ff7f50; margin:0.3rem 0; }
+.ingredients, .right ol { font-size:0.85rem; padding-left:15px; margin:0; }
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 992px) {
+  .hero { padding:3rem 1.5rem; }
+  .hero h2 { font-size:1.6rem; }
+  .modal-content { flex-direction:column; max-height:85vh; }
+  .left, .right { flex:1 1 100%; max-height:none; }
+  .thumbnails img { height:80px; }
+}
+
+/* ---------------- MOBILE SMALL ---------------- */
+@media (max-width: 600px) {
+  html, body { overflow-x: hidden; }
+
+  body.modal-open { overflow: hidden; }
+
+  /* Container adjustments */
+  .container, .hero, .recipe-grid, .modal-content {
+    width:95% !important;
+    max-width:95% !important;
+    margin:0 auto;
+    padding:0 5px !important;
+    box-sizing: border-box;
+  }
+
+  /* Header / nav */
+  .container { flex-direction:row; justify-content:space-between; align-items:center; }
+  .nav-links { 
+    display:none;
+    flex-direction: column;
+    gap:0.5rem;
+    position:absolute;
+    top:60px; left:0;
+    width:100%;
+    background: rgba(0,0,0,0.8);
+    padding:1rem 0;
+    text-align:center;
+  }
+  .nav-toggle:checked + .hamburger + .nav-links { display:flex; }
+  .hamburger { display:flex; }
+
+  /* Hero */
+  .hero { padding:2rem 1rem; }
+  .hero h2 { font-size:1.3rem; }
+
+  /* Recipe grid */
+  .recipe-grid { padding:1rem; gap:1rem; }
+  .card img { height:150px; }
+
+  /* Modal adjustments */
+  .modal.show { align-items:flex-start; padding-top:10px; overflow-y:auto; }
+  .modal-content { flex-direction:column !important; padding:10px !important; max-height:90vh; }
+  .left img.main-img { max-height:180px; }
+  .thumbnails img { height:50px; }
+  .scroll-area { max-height:250px; overflow-y:auto; }
+
+  /* Buttons & selects */
+  select, button { width:100%; font-size:0.9rem; }
+  .card, .modal-content, .thumbnails img, .left img.main-img { max-width:100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>MoodMeal</h1>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="recipe.html" class="active">Recipes</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h2>Discover Recipes That Match Your Mood 🍽️</h2>
+  <select id="mood-filter">
+    <option value="">-- Show all moods --</option>
+    <option value="happy">😊 Happy</option>
+    <option value="romantic">💖 Romantic</option>
+    <option value="sad">😢 Sad</option>
+  </select>
+</section>
+
+<section class="recipe-grid" id="recipe-grid"></section>
+
+<div class="modal" id="recipeModal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <div class="modal-body">
+      <div class="left">
+        <img id="main-img" src="" alt="Recipe Image" class="main-img">
+        <div class="thumbnails" id="thumbnails"></div>
       </div>
-    </header>
-
-    <main>
-      <section class="hero">
-        <h2>Browse Recipes by Mood</h2>
-        <p>Pick a mood to discover a matching recipe and music vibe!</p>
-        <select id="mood-selector">
-          <option value="">-- Choose your mood --</option>
-          <option value="happy">😊 Happy</option>
-          <option value="romantic">💖 Romantic</option>
-          <option value="sad">😢 Sad</option>
-          <option value="chill">😌 Chill</option>
-          <option value="energized">⚡ Energized</option>
-          <option value="adventurous">🌍 Adventurous</option>
-          <option value="nostalgic">📻 Nostalgic</option>
-          <option value="focused">🎯 Focused</option>
-          <option value="lazy">🛋️ Lazy</option>
-          <option value="inspired">🌟 Inspired</option>
-        </select>
-      </section>
-
-      <section class="all-recipes container">
-        <h2>All Recipes</h2>
-        <div class="recipe-grid" id="recipe-grid"></div>
-      </section>
-    </main>
-
-    <!-- Modal -->
-    <div id="recipe-modal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" id="close-modal">&times;</span>
-        <h3 id="modal-title">Recipe Title</h3>
-        <p id="modal-desc">Recipe description</p>
-        <h4>Ingredients:</h4>
-        <ul id="modal-ingredients"></ul>
-        <h4>Instructions:</h4>
-        <p id="modal-instructions"></p>
-        <h4>Your Music Vibe:</h4>
-        <div id="modal-music" class="music-box"></div>
+      <div class="right">
+        <h2 id="modal-title"></h2>
+        <p id="modal-desc"></p>
+        <div class="scroll-area">
+          <h3>Ingredients</h3>
+          <ul class="ingredients" id="modal-ingredients"></ul>
+          <h3>Directions</h3>
+          <ol id="modal-instructions"></ol>
+        </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <footer>
-      <p>&copy; 2025 MoodMeal. Created with 💛 at Uncommon bootcamp.</p>
-    </footer>
+<script>
+const moodCategoryMap = {happy:"Dessert", romantic:"Seafood", sad:"Beef"};
+const recipeGrid = document.getElementById('recipe-grid');
+const modal = document.getElementById('recipeModal');
+const closeModal = document.getElementById('closeModal');
+const mainImg = document.getElementById('main-img');
+const thumbnailsDiv = document.getElementById('thumbnails');
 
-    <script src="script.js"></script>
-    <script>
-      const recipeGrid = document.getElementById("recipe-grid");
-      const modal = document.getElementById("recipe-modal");
-      const closeModal = document.getElementById("close-modal");
+document.getElementById('mood-filter').addEventListener('change', async e=>{
+  const mood = e.target.value;
+  recipeGrid.innerHTML = '';
+  if(!mood) return;
 
-      const modalTitle = document.getElementById("modal-title");
-      const modalDesc = document.getElementById("modal-desc");
-      const modalIngredients = document.getElementById("modal-ingredients");
-      const modalInstructions = document.getElementById("modal-instructions");
-      const modalMusic = document.getElementById("modal-music");
+  const category = moodCategoryMap[mood];
+  const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const data = await res.json();
+  const meals = data.meals.slice(0,10);
 
-      // Example ingredients and instructions for each mood
-      const recipeDetails = {
-        happy: {
-          ingredients: ["1 cup flour", "1/2 cup sugar", "2 lemons, zest and juice", "2 eggs", "1/2 cup butter"],
-          instructions: "Mix all ingredients, bake at 350°F for 20 minutes, let cool, and enjoy your sunshine cupcakes!"
-        },
-        romantic: {
-          ingredients: ["1 cup flour", "2 eggs", "1/2 cup milk", "1/2 cup strawberries", "1 tsp rose water"],
-          instructions: "Prepare crepe batter, cook thin crepes, add strawberries and rose syrup, fold and serve with love."
-        },
-        // Add other moods here...
-      };
+  meals.forEach(meal=>{
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.dataset.id = meal.idMeal;
+    card.innerHTML = `
+      <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+      <h3>${meal.strMeal}</h3>
+      <button class="view-recipe">View Recipe</button>
+    `;
+    recipeGrid.appendChild(card);
+  });
 
-      // Generate recipe cards dynamically
-      for (const mood in moodData) {
-        const card = document.createElement("div");
-        card.classList.add("card");
+  document.querySelectorAll('.view-recipe').forEach(btn=>{
+    btn.addEventListener('click', async e=>{
+      const card = e.target.closest('.card');
+      const id = card.dataset.id;
+      const resDetail = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const detail = await resDetail.json();
+      const meal = detail.meals[0];
 
-        card.innerHTML = `
-          <h3>${moodData[mood].recipe.title}</h3>
-          <p>${moodData[mood].recipe.desc}</p>
-          <button onclick="openModal('${mood}')">View Full Recipe</button>
-        `;
+      document.getElementById('modal-title').textContent = meal.strMeal;
+      document.getElementById('modal-desc').textContent = meal.strCategory + " | " + (meal.strArea || "");
+      mainImg.src = meal.strMealThumb;
 
-        recipeGrid.appendChild(card);
+      const ingredients = [];
+      for(let i=1;i<=20;i++){
+        if(meal[`strIngredient${i}`] && meal[`strIngredient${i}`].trim() !== "")
+          ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`);
       }
+      document.getElementById('modal-ingredients').innerHTML = ingredients.map(i=>`<li>${i}</li>`).join('');
 
-      function openModal(mood) {
-        modalTitle.textContent = moodData[mood].recipe.title;
-        modalDesc.textContent = moodData[mood].recipe.desc;
+      document.getElementById('modal-instructions').innerHTML = meal.strInstructions.split('. ').map(ins=>`<li>${ins.trim()}.</li>`).join('');
 
-        // Populate ingredients
-        modalIngredients.innerHTML = "";
-        if (recipeDetails[mood] && recipeDetails[mood].ingredients) {
-          recipeDetails[mood].ingredients.forEach(ing => {
-            const li = document.createElement("li");
-            li.textContent = ing;
-            modalIngredients.appendChild(li);
-          });
+      thumbnailsDiv.innerHTML = '';
+      let thumbCount = 0;
+      for (let i=1; i<=20 && thumbCount<4; i++){
+        const ingredient = meal[`strIngredient${i}`];
+        if (ingredient && ingredient.trim() !== ""){
+          const thumb = document.createElement('img');
+          thumb.src = `https://www.themealdb.com/images/ingredients/${encodeURIComponent(ingredient)}.png`;
+          thumb.alt = ingredient;
+          thumb.onclick = ()=>{ mainImg.src = thumb.src; };
+          thumbnailsDiv.appendChild(thumb);
+          thumbCount++;
         }
-
-        // Populate instructions
-        modalInstructions.textContent = recipeDetails[mood]?.instructions || "Instructions coming soon.";
-
-        // Music embed
-        modalMusic.innerHTML = `
-          <iframe style="border-radius:12px" src="${moodData[mood].music}" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        `;
-
-        modal.style.display = "block";
+      }
+      while(thumbCount<4){
+        const thumb = document.createElement('img');
+        thumb.src = meal.strMealThumb;
+        thumb.alt = meal.strMeal;
+        thumb.onclick = ()=>{ mainImg.src = thumb.src; };
+        thumbnailsDiv.appendChild(thumb);
+        thumbCount++;
       }
 
-      closeModal.onclick = () => modal.style.display = "none";
-      window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; }
-    </script>
-  </body>
+      modal.classList.add('show');
+      document.body.classList.add('modal-open');
+    });
+  });
+});
+
+closeModal.addEventListener('click', ()=>{
+  modal.classList.remove('show');
+  document.body.classList.remove('modal-open');
+});
+window.addEventListener('click', e=>{ 
+  if(e.target===modal){
+    modal.classList.remove('show');
+    document.body.classList.remove('modal-open');
+  }
+});
+window.addEventListener('keydown', e=>{ 
+  if(e.key==='Escape'){
+    modal.classList.remove('show');
+    document.body.classList.remove('modal-open');
+  }
+});
+</script>
+
+</body>
 </html>
