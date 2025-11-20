@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodMeal | Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  background:linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size:600% 600%;
+  animation:gradientBG 20s ease infinite;
+  color:#fff;
+}
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+header {
+  background-color: rgba(0,0,0,0.6);
+  padding:1rem 0;
+  border-bottom:2px solid #00ffe0;
+}
+.container {
+  width:90%; max-width:1100px;
+  margin:auto;
+  display:flex; justify-content:space-between; align-items:center;
+}
+nav a {
+  margin:0 1rem;
+  text-decoration:none;
+  color:#00ffe0;
+  font-weight:500;
+  transition:color 0.3s;
+}
+nav a:hover, nav a.active {color:#fff;}
+
+.hero {
+  text-align:center;
+  padding:3rem 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius:20px;
+  margin:2rem auto;
+  width:90%; max-width:800px;
+  backdrop-filter: blur(8px);
+}
+.hero h2 {
+  font-size:2rem;
+  margin-bottom:1rem;
+  color:#00ffe0;
+}
+
+.contact-section {
+  width:90%; max-width:700px;
+  margin:2rem auto;
+  background:rgba(0,0,0,0.4);
+  padding:2rem;
+  border-radius:15px;
+  box-shadow:0 0 15px rgba(0,255,224,0.3);
+}
+.contact-section h3 {
+  color:#ff7f50;
+  font-size:1.3rem;
+  margin-bottom:1rem;
+}
+.contact-section form {
+  display:flex;
+  flex-direction:column;
+}
+.contact-section label {
+  margin-bottom:0.3rem;
+  font-weight:500;
+}
+.contact-section input,
+.contact-section textarea {
+  padding:0.8rem;
+  margin-bottom:1rem;
+  border:none;
+  border-radius:8px;
+  outline:none;
+  background-color:#1e1e1e;
+  color:#00ffe0;
+  font-family:'Montserrat',sans-serif;
+  font-size:1rem;
+}
+.contact-section textarea {
+  resize:vertical;
+  min-height:120px;
+}
+.contact-section button {
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  background-color:#00ffe0;
+  color:#111;
+  font-weight:600;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+.contact-section button:hover {
+  background-color:#ff7f50;
+  color:#fff;
+}
+
+footer {
+  text-align:center;
+  padding:1rem;
+  margin-top:2rem;
+  background:rgba(0,0,0,0.6);
+  border-top:2px solid #00ffe0;
+  font-size:0.9rem;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>MoodMeal</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="recipe.html">Recipes</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h2>Get In Touch ✉️</h2>
+  <p>Have a question, suggestion, or want to collaborate? Send me a message!</p>
+</section>
+
+<section class="contact-section">
+  <h3>Contact Form</h3>
+  <form id="contactForm">
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Your Name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Your Email" required>
+
+    <label for="message">Message</label>
+    <textarea id="message" placeholder="Your Message" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+  <p id="statusMessage" style="margin-top:10px;"></p>
+</section>
+
+<footer>
+  <p>© 2025 MoodMeal | Designed with 💙 and dedication</p>
+</footer>
+
+<script>
+const form = document.getElementById('contactForm');
+const statusMessage = document.getElementById('statusMessage');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
+
+  if(!name || !email || !message){
+    statusMessage.textContent = "Please fill in all fields!";
+    statusMessage.style.color = "red";
+    return;
+  }
+
+  // Placeholder for form submission logic
+  statusMessage.textContent = "Thank you! Your message has been sent.";
+  statusMessage.style.color = "#00ffe0";
+  form.reset();
+});
+</script>
+
+</body>
+</html>
