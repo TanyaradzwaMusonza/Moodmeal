@@ -309,10 +309,17 @@ button:hover {color:#fff;}
 <section class="hero">
   <h2>Discover Recipes That Match Your Mood 🍽️</h2>
   <select id="mood-filter">
-    <option value="">-- Show all moods --</option>
+    <option value="all">-- Show all moods --</option>
     <option value="happy">😊 Happy</option>
     <option value="romantic">💖 Romantic</option>
     <option value="sad">😢 Sad</option>
+     <option value="chill">😌 Chill</option>
+      <option value="energized">⚡ Energized</option>
+      <option value="adventurous">🌍 Adventurous</option>
+      <option value="nostalgic">📻 Nostalgic</option>
+      <option value="focused">🎯 Focused</option>
+      <option value="lazy">🛋️ Lazy</option>
+      <option value="inspired">🌟 Inspired</option>
   </select>
 </section>
 
@@ -341,7 +348,7 @@ button:hover {color:#fff;}
 </div>
 
 <script>
-const moodCategoryMap = {happy:"Dessert", romantic:"Seafood", sad:"Beef"};
+const moodCategoryMap = {happy:"Dessert", romantic:"Seafood", focused:"Beef",chill:"Chicken",sad:"Pasta",lazy:"Pork",nostalgic:"Vegan",  inspired:"Starter",adventurous:"Side", energized:"Lamb", all:"Lamb"};
 const recipeGrid = document.getElementById('recipe-grid');
 const modal = document.getElementById('recipeModal');
 const closeModal = document.getElementById('closeModal');
