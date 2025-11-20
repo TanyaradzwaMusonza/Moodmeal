@@ -6,53 +6,92 @@
 <title>MoodMeal | Contact</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 <style>
-body {
+/* ---------------- BASE ---------------- */
+html, body {
   margin:0;
+  padding:0;
   font-family:'Montserrat',sans-serif;
   background:linear-gradient(270deg, #0f2027, #203a43, #2c5364);
   background-size:600% 600%;
   animation:gradientBG 20s ease infinite;
   color:#fff;
+  overflow-x: hidden;
 }
 @keyframes gradientBG {
   0% {background-position:0% 50%;}
   50% {background-position:100% 50%;}
   100% {background-position:0% 50%;}
 }
+
+/* ---------------- HEADER ---------------- */
 header {
   background-color: rgba(0,0,0,0.6);
   padding:1rem 0;
   border-bottom:2px solid #00ffe0;
+  position: relative;
+  z-index: 100;
 }
 .container {
-  width:90%; max-width:1100px;
+  width:90%;
+  max-width:1100px;
   margin:auto;
-  display:flex; justify-content:space-between; align-items:center;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
 }
-nav a {
-  margin:0 1rem;
+header h1 { margin:0; font-size:1.8rem; }
+
+/* NAVIGATION */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.nav-links a {
   text-decoration:none;
   color:#00ffe0;
   font-weight:500;
   transition:color 0.3s;
 }
-nav a:hover, nav a.active {color:#fff;}
+.nav-links a:hover, .nav-links a.active { color:#fff; }
 
+/* HAMBURGER */
+.nav-toggle { display:none; }
+.hamburger {
+  display:none;
+  flex-direction: column;
+  justify-content: space-between;
+  width:28px;
+  height:21px;
+  cursor:pointer;
+}
+.hamburger span {
+  display:block;
+  height:3px;
+  width:100%;
+  background-color:#00ffe0;
+  border-radius:2px;
+  transition: all 0.3s ease;
+}
+
+/* ---------------- HERO ---------------- */
 .hero {
   text-align:center;
   padding:3rem 2rem;
   background: rgba(255,255,255,0.05);
   border-radius:20px;
   margin:2rem auto;
-  width:90%; max-width:800px;
+  width:90%;
+  max-width:800px;
   backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
-.hero h2 {
-  font-size:2rem;
-  margin-bottom:1rem;
-  color:#00ffe0;
-}
+.hero h2 { font-size:2rem; margin-bottom:1rem; color:#00ffe0; }
+.hero p { font-size:1.1rem; }
 
+/* ---------------- CONTACT FORM ---------------- */
 .contact-section {
   width:90%; max-width:700px;
   margin:2rem auto;
@@ -61,19 +100,9 @@ nav a:hover, nav a.active {color:#fff;}
   border-radius:15px;
   box-shadow:0 0 15px rgba(0,255,224,0.3);
 }
-.contact-section h3 {
-  color:#ff7f50;
-  font-size:1.3rem;
-  margin-bottom:1rem;
-}
-.contact-section form {
-  display:flex;
-  flex-direction:column;
-}
-.contact-section label {
-  margin-bottom:0.3rem;
-  font-weight:500;
-}
+.contact-section h3 { color:#ff7f50; font-size:1.3rem; margin-bottom:1rem; }
+.contact-section form { display:flex; flex-direction:column; }
+.contact-section label { margin-bottom:0.3rem; font-weight:500; }
 .contact-section input,
 .contact-section textarea {
   padding:0.8rem;
@@ -86,10 +115,7 @@ nav a:hover, nav a.active {color:#fff;}
   font-family:'Montserrat',sans-serif;
   font-size:1rem;
 }
-.contact-section textarea {
-  resize:vertical;
-  min-height:120px;
-}
+.contact-section textarea { resize:vertical; min-height:120px; }
 .contact-section button {
   padding:10px 15px;
   border:none;
@@ -100,10 +126,7 @@ nav a:hover, nav a.active {color:#fff;}
   cursor:pointer;
   transition:background 0.3s;
 }
-.contact-section button:hover {
-  background-color:#ff7f50;
-  color:#fff;
-}
+.contact-section button:hover { background-color:#ff7f50; color:#fff; }
 
 footer {
   text-align:center;
@@ -113,6 +136,27 @@ footer {
   border-top:2px solid #00ffe0;
   font-size:0.9rem;
 }
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .hamburger { display:flex; }
+  .nav-links { 
+    display:none;
+    flex-direction: column;
+    gap:0.5rem;
+    position:absolute;
+    top:60px; left:0;
+    width:100%;
+    background: rgba(0,0,0,0.8);
+    padding:1rem 0;
+    text-align:center;
+  }
+  .nav-toggle:checked + .hamburger + .nav-links { display:flex; }
+  nav.nav-links a { font-size:1.2rem; margin:0.5rem 0; }
+  .hero { padding:2rem 1rem; }
+  .hero h2 { font-size:1.3rem; }
+  .contact-section { padding:1.5rem 1rem; }
+}
 </style>
 </head>
 <body>
@@ -120,7 +164,13 @@ footer {
 <header>
   <div class="container">
     <h1>MoodMeal</h1>
-    <nav>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="recipe.html">Recipes</a>
       <a href="about.html">About</a>
@@ -172,7 +222,6 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  // Placeholder for form submission logic
   statusMessage.textContent = "Thank you! Your message has been sent.";
   statusMessage.style.color = "#00ffe0";
   form.reset();
