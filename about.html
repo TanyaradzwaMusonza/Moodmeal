@@ -1,134 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | MoodMeal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin:0;
-      font-family:'Montserrat',sans-serif;
-      background:linear-gradient(270deg, #0f2027, #203a43, #2c5364);
-      background-size:600% 600%;
-      animation:gradientBG 20s ease infinite;
-      color:#fff;
-    }
-    @keyframes gradientBG {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
-    }
-    header {
-      background-color: rgba(0,0,0,0.6);
-      padding:1rem 0;
-      border-bottom:2px solid #00ffe0;
-    }
-    .container {
-      width:90%;
-      max-width:1100px;
-      margin:auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    nav a {
-      margin:0 1rem;
-      text-decoration:none;
-      color:#00ffe0;
-      font-weight:500;
-      transition:color 0.3s;
-    }
-    nav a:hover, nav a.active {color:#fff;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodMeal | About</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ---------------- BASE ---------------- */
+html, body {
+  margin:0;
+  padding:0;
+  font-family:'Montserrat',sans-serif;
+  background:linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size:600% 600%;
+  animation:gradientBG 20s ease infinite;
+  color:#fff;
+  overflow-x: hidden;
+}
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
 
-    .hero {
-      text-align:center;
-      padding:3rem 2rem;
-      background: rgba(255,255,255,0.05);
-      border-radius:20px;
-      margin:2rem auto;
-      width:90%;
-      max-width:900px;
-      backdrop-filter: blur(8px);
-    }
-    .hero h2 {
-      font-size:2rem;
-      margin-bottom:1rem;
-      color:#00ffe0;
-    }
-    .hero p {
-      font-size:1.1rem;
-      line-height:1.6;
-      max-width:700px;
-      margin:auto;
-      color:#f0f0f0;
-    }
+/* ---------------- HEADER ---------------- */
+header {
+  background-color: rgba(0,0,0,0.6);
+  padding:1rem 0;
+  border-bottom:2px solid #00ffe0;
+  position: relative;
+  z-index: 100;
+}
+.container {
+  width:90%;
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+header h1 { margin:0; font-size:1.8rem; }
 
-    .section {
-      width:90%;
-      max-width:1000px;
-      margin:2rem auto;
-      background:rgba(0,0,0,0.4);
-      padding:2rem;
-      border-radius:15px;
-      box-shadow:0 0 12px rgba(0,255,224,0.3);
-    }
-    .section h3 {
-      font-size:1.5rem;
-      margin-bottom:1rem;
-      color:#ff7f50;
-    }
-    .section p {
-      line-height:1.6;
-      margin-bottom:1rem;
-    }
-    .team {
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap:1.5rem;
-      margin-top:2rem;
-    }
-    .team-member {
-      text-align:center;
-      background:rgba(255,255,255,0.05);
-      border-radius:10px;
-      padding:1rem;
-      transition: transform 0.3s;
-    }
-    .team-member:hover {
-      transform: translateY(-5px);
-    }
-    .team-member img {
-      width:120px;
-      height:120px;
-      border-radius:50%;
-      object-fit:cover;
-      margin-bottom:0.8rem;
-      border:2px solid #00ffe0;
-    }
-    .team-member h4 {
-      margin:0.5rem 0;
-      color:#00ffe0;
-    }
-    .team-member p {
-      font-size:0.95rem;
-      color:#ddd;
-      margin:0.3rem 0;
-    }
+/* NAVIGATION */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  text-decoration:none;
+  color:#00ffe0;
+  font-weight:500;
+  transition:color 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color:#fff; }
 
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      border-top: 1px solid #00ffe0;
-    }
-  </style>
+/* HAMBURGER */
+.nav-toggle { display:none; }
+.hamburger {
+  display:none;
+  flex-direction: column;
+  justify-content: space-between;
+  width:28px;
+  height:21px;
+  cursor:pointer;
+}
+.hamburger span {
+  display:block;
+  height:3px;
+  width:100%;
+  background-color:#00ffe0;
+  border-radius:2px;
+  transition: all 0.3s ease;
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  text-align:center;
+  padding:4rem 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius:20px;
+  margin:2rem auto;
+  width:90%;
+  max-width:800px;
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+}
+.hero h2 { font-size:1.8rem; }
+.hero p { font-size:1.1rem; line-height:1.6; max-width:700px; margin:auto; color:#f0f0f0; }
+
+/* ---------------- SECTIONS ---------------- */
+.section {
+  width:90%;
+  max-width:1000px;
+  margin:2rem auto;
+  background:rgba(0,0,0,0.4);
+  padding:2rem;
+  border-radius:15px;
+  box-shadow:0 0 12px rgba(0,255,224,0.3);
+}
+.section h3 { font-size:1.5rem; margin-bottom:1rem; color:#ff7f50; }
+.section p { line-height:1.6; margin-bottom:1rem; }
+
+/* ---------------- TEAM ---------------- */
+.team {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap:1.5rem;
+  margin-top:2rem;
+}
+.team-member {
+  text-align:center;
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+  padding:1rem;
+  transition: transform 0.3s;
+}
+.team-member:hover { transform: translateY(-5px); }
+.team-member img {
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:0.8rem;
+  border:2px solid #00ffe0;
+}
+.team-member h4 { margin:0.5rem 0; color:#00ffe0; }
+.team-member p { font-size:0.95rem; color:#ddd; margin:0.3rem 0; }
+
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  border-top: 1px solid #00ffe0;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .hamburger { display:flex; }
+  .nav-links { 
+    display:none;
+    flex-direction: column;
+    gap:0.5rem;
+    position:absolute;
+    top:60px; left:0;
+    width:100%;
+    background: rgba(0,0,0,0.8);
+    padding:1rem 0;
+    text-align:center;
+  }
+  .nav-toggle:checked + .hamburger + .nav-links { display:flex; }
+  nav.nav-links a { font-size:1.2rem; margin:0.5rem 0; }
+  .hero { padding:2rem 1rem; }
+  .hero h2 { font-size:1.3rem; }
+  .section { padding:1.5rem 1rem; }
+  .team-member img { width:100px; height:100px; }
+}
+</style>
 </head>
 <body>
 
 <header>
   <div class="container">
     <h1>MoodMeal</h1>
-    <nav>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="recipe.html">Recipes</a>
       <a href="about.html" class="active">About</a>
@@ -137,28 +179,30 @@
   </div>
 </header>
 
-<section class="hero">
-  <h2>About MoodMeal</h2>
-  <p>MoodMeal was built with one simple idea: <strong>food can match your feelings</strong>. Whether you're happy, sad, or in love, we help you discover recipes that complement your emotions and make your day brighter. 🍽️</p>
-</section>
+<main>
+  <section class="hero">
+    <h2>About MoodMeal</h2>
+    <p>MoodMeal was built with one simple idea: <strong>food can match your feelings</strong>. Whether you're happy, sad, or in love, we help you discover recipes that complement your emotions and make your day brighter. 🍽️</p>
+  </section>
 
-<section class="section">
-  <h3>Our Story</h3>
-  <p>We believe that food is more than just fuel—it’s comfort, culture, and connection. MoodMeal started as a small project to make cooking more fun and meaningful by matching moods to meals using a touch of creativity and the power of TheMealDB API.</p>
-  <p>Our mission is to inspire people to cook meals that not only satisfy their hunger but also resonate with their emotions.</p>
-</section>
+  <section class="section">
+    <h3>Our Story</h3>
+    <p>We believe that food is more than just fuel—it’s comfort, culture, and connection. MoodMeal started as a small project to make cooking more fun and meaningful by matching moods to meals using a touch of creativity and the power of TheMealDB API.</p>
+    <p>Our mission is to inspire people to cook meals that not only satisfy their hunger but also resonate with their emotions.</p>
+  </section>
 
-<section class="section">
-  <h3>Meet the Team</h3>
-  <div class="team">
-    <div class="team-member">
-      <img src="cvv.jpg" alt="Tanyaradzwa Roshly Musonza">
-      <h4>Tanyaradzwa Roshly Musonza</h4>
-      <p>Passionate Web Developer</p>
-      <p>Tanyaradzwa built MoodMeal because she loves cooking and listening to music. Her passion for web development and creativity made this project possible!</p>
+  <section class="section">
+    <h3>Meet the Team</h3>
+    <div class="team">
+      <div class="team-member">
+        <img src="cvv.jpg" alt="Tanyaradzwa Roshly Musonza">
+        <h4>Tanyaradzwa Roshly Musonza</h4>
+        <p>Passionate Web Developer</p>
+        <p>Tanyaradzwa built MoodMeal because she loves cooking and listening to music. Her passion for web development and creativity made this project possible!</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>
 
 <footer>
   <p>&copy; 2025 MoodMeal. Created with 💛 at Uncommon bootcamp.</p>
